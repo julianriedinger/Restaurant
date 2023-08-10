@@ -19,14 +19,12 @@ function App() {
 
   const [selectedTable, setSelectedTable] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [orderSent, setOrderSent] = useState(false); // New state for orderSent
 
 const currentOrdersForTable = selectedTable ? orders[selectedTable] || [] : [];
 
   useEffect(() => {
     socket.on('updateOrders', (updatedOrders) => {
         setOrders(updatedOrders);
-        setOrderSent(true); // New line
     });
 
     return () => {
@@ -173,7 +171,6 @@ const currentOrdersForTable = selectedTable ? orders[selectedTable] || [] : [];
    
     const sendOrder = () => {
       socket.emit('sendOrder', orders);
-      setOrderSent(true);
     };
 
   const addToOrder = (item) => {
